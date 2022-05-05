@@ -1,0 +1,38 @@
+{% extends 'template.html.twig' %}
+{% block titre  %}
+    personne
+{% endblock %}
+{% block main %}
+    {% for msg in app.session.flashBag.get("error") %}
+    <div class="alert alert-danger">
+        {{ msg }}
+    </div>
+    {% endfor %}
+    {% for msg in app.session.flashBag.get("success") %}
+        <div class="alert alert-success">
+            {{ msg }}
+        </div>
+    {% endfor %}
+    {% if user is defined %}
+    <div class="alert alert-success">
+    {{ user.id }}
+         {{ user.name }}
+    {{ user.firstname }}
+    {{ user.age }}
+    </div>
+    {% endif %}
+    {% if persone is defined %}
+    {% for element in persone %}
+<div class="col-3">
+    {{ element.firstname }}
+    {{ element.name }}
+    {{ element.age }}
+    <a href="{{ path('personne_detail',{'id' :element.getId()}) }}">detail</a>
+    <a href="{{ path('del_personne',{'id' :element.getId()}) }}">delete</a>
+    <a href="{{ path('edit_personne',{'id' :element.getId()}) }}">update</a>
+
+</div>
+    {% endfor %}
+    {% endif %}
+
+{% endblock %}
